@@ -18,6 +18,20 @@ router.get("/fore/:city/:state/:country", (req, res) => {
         .then((data) => res.send(data));
 });
 
+//To get list of cities
+router.get("/list/:finalsearch", (req, res) => {
+    let city = req.params.finalsearch;
+
+    const WEATHER_API_KEY_ONE = process.env.WEATHER_API_KEY_ONE;
+
+    let url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${WEATHER_API_KEY_ONE}`;
+
+    fetch(url)
+        .then((resp) => resp.json())
+        .then((data) => res.send(data));
+});
+
+//For reverse geocoding
 router.get("/getlocation/:lat/:long", (req, res) => {
     let lat = req.params.lat;
     let long = req.params.long;
